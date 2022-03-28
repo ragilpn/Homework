@@ -4,15 +4,35 @@ import './App.css';
 
 const SPOTIFY_SECRET_KEY = process.env.REACT_APP_SPOFITY_KEY;
 function App() {
-  return (
-    <div className="App">
-      <img src={data.album.almat}></img>
-      <h2>{data.album.name}</h2>
-      <h3>{data.album.art}</h3>
-      <h3>{data.album.release_date}</h3>
-      <h3>{data.album.total_tracks}</h3>
-      <button>Select</button>
+  const Song = ({Title,album,artist,images}) => (
+  <div className='playlist'>
+    <div className='header'>
+    <h2 className='title'>{Title}</h2>
     </div>
+    <div className='isi'>
+      <img 
+      src={images}
+      alt="gambar"
+      />
+      <p className='artis'>{artist}</p>
+      <button className='btn'>Select</button>
+    </div>
+  </div>
+  )
+  return (
+<div className="table-of-tracks">
+        {data.map((data) => {
+          return (
+            <Song
+              key={data.album.id}
+              album={data.album.name}
+              images={data.album.images[0].url}
+              Title={data.name}
+              artist={data.artists[0].name}
+            />
+          );
+        })};
+      </div>
   );
 }
 
