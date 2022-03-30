@@ -20,6 +20,7 @@ function App() {
   </div>
   )
   return (
+    
 <div className="table-of-tracks">
         {data.map((data) => {
           return (
@@ -35,5 +36,6 @@ function App() {
       </div>
   );
 }
+
 
 export default App;
