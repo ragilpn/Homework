@@ -42,8 +42,8 @@ const Home = () => {
 
     const login = () => {
         const callbackUrl = "http://localhost:3000/"
-        const clientId = process.env.REACT_APP_SPOTIFY_ID
-        const scope = "playlist-modify-private"
+        const clientId = "088d0c7e4aa0454292b279ac6c7fb4d2"
+        const scope = ["playlist-modify-private", "user-read-currently-playing"]
         const url = `https://accounts.spotify.com/en/authorize?response_type=token&client_id=${clientId}&scope=${encodeURIComponent(scope)}&redirect_uri=${encodeURIComponent(callbackUrl)}`
 
         window.location.replace(url);
@@ -63,11 +63,20 @@ const Home = () => {
         <>
             <div className="navbar">
                 <SearchBar onSearch={search}/>
-                <ul>
-                    <li>
-                        Playlist
-                    </li>
-                </ul>
+                <div className='nav'>
+                <button>
+                    <p>Home</p>
+                </button>
+                <button>
+                    <p>Your Library</p>
+                </button>
+                <button>
+                    <p>Create Playlist</p>
+                </button>
+                <button>
+                    <p>Liked Songs</p>
+                </button>
+                </div>
                 { token === "" ? <button onClick={login}>Login</button> : <button onClick={logout}>Logout</button>}
             </div>
             <div className="container">
