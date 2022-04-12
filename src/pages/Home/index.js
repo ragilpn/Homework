@@ -43,7 +43,7 @@ const Home = () => {
     const login = () => {
         const callbackUrl = "http://localhost:3000/"
         const clientId = "088d0c7e4aa0454292b279ac6c7fb4d2"
-        const scope = ["playlist-modify-private", "user-read-currently-playing"]
+        const scope = ["playlist-modify-private", "user-read-currently-playing", "playlist-read-private"]
         const url = `https://accounts.spotify.com/en/authorize?response_type=token&client_id=${clientId}&scope=${encodeURIComponent(scope)}&redirect_uri=${encodeURIComponent(callbackUrl)}`
 
         window.location.replace(url);
@@ -91,6 +91,9 @@ const Home = () => {
                 { (results.length === 0 && error === "") && 
                     <img src={banner} width="100%" height="100%" alt="" />
                 }
+            </div>
+            <div className='playlist'>
+                
             </div>
         </>
     )
