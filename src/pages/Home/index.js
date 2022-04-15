@@ -10,6 +10,33 @@ const Home = () => {
     const [results, setResults] = useState([])
     const [error, setError] = useState("")
 
+    const [playlists, setPlaylists] = useState([]) // playlist disimpan di sini
+    const [playlistName, setPlaylistName] = useState("")
+
+    const handleNewPlaylist = (e) => {
+        setPlaylists([...playlists, {name: playlistName, songs: []}])
+        setPlaylistName("")
+    }
+
+    const handleNewSongToPlaylist = (song, playlistName) => {
+        const newPlaylists = playlists.map((val) => {
+            if (val.name === playlistName) {
+                val.songs = [...val.songs, song]
+            }
+            return val
+        })
+
+        setPlaylists(newPlaylists);
+    }
+
+    const handlePlaylistChange = (e) => {
+        setPlaylistName(e.target.value)
+    }
+
+    useEffect(() => {
+        console.log(playlists)
+    }, [playlists])
+
     const validate = (query) => {
         if (token === "") {
             alert("Please login first!");
@@ -63,6 +90,7 @@ const Home = () => {
         <>
             <div className="navbar">
                 <SearchBar onSearch={search}/>
+
                 <div className='nav'>
                 <button>
                     <p>Home</p>
@@ -73,6 +101,30 @@ const Home = () => {
                 <button>
                     <p>Create Playlist</p>
                 </button>
+                <input 
+                    value={playlistName}
+                    onChange={handlePlaylistChange}                
+                />
+                <button onClick={handleNewPlaylist}>
+                    tambahkan!
+                </button>
+                
+                <div> 
+                <p>contoh display lagu lagu per playlist </p>
+                {
+                    playlists.map((playlist) => (
+                        <div>
+                            <p>Judul playlist: {playlist.name}</p>
+                            <p>lagu lagu: </p>
+                            {
+                                playlist.songs.map((song) => (
+                                    <p>{song}</p>
+                                ))
+                            }
+                        </div>
+                    ))
+                }
+                </div>
                 <button>
                     <p>Liked Songs</p>
                 </button>
@@ -86,6 +138,8 @@ const Home = () => {
                     image={a.album.images[1].url} 
                     title={a.name} 
                     singer={a.artists[0].name}
+                    playlists={playlists}
+                    handleNewSongToPlaylist={handleNewSongToPlaylist}
                 />) 
                 }
                 { (results.length === 0 && error === "") && 
@@ -93,7 +147,7 @@ const Home = () => {
                 }
             </div>
             <div className='playlist'>
-                
+
             </div>
         </>
     )

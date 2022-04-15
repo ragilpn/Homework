@@ -1,7 +1,14 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import './card.css'
 
-const Card = ({title,singer,image}) => {
+const Card = ({title,singer,image,playlists,handleNewSongToPlaylist}) => {
+  
+  const [selectToggle, setToggle] = useState(false)
+
+  const handleToggleSelect = () => {
+    setToggle(!selectToggle)
+  }
+
   return (
   <div class="playlist">
     <div class="isi">
@@ -16,7 +23,22 @@ const Card = ({title,singer,image}) => {
         <p class="artis">{singer}</p>
     </div>
     <div class="select">
-    <button>select</button>
+    <button onClick={handleToggleSelect}>select</button>
+    {
+      selectToggle && (
+        <div>
+          {
+            playlists.map((playlist, key) => (
+              <div key={key}>
+                <button onClick={() => {
+                  handleNewSongToPlaylist(title, playlist.name)
+                }}>{playlist.name}</button>
+              </div>
+            ))
+          }
+        </div>
+      )
+    }
     </div>
   </div> 
   )
